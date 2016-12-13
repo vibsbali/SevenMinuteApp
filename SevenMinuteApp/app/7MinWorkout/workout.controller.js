@@ -8,15 +8,21 @@
 
         //restExcercise is a json object containing Exercise duration propery
         var restExercise;
-        var workoutPlan;
+        //var workoutPlan;
 
         function startWorkout() {
-            workoutPlan = createWorkout();
+            $scope.workoutPlan = createWorkout();
             restExercise = {
                 details: new Exercise({ name: "rest", title: "Relax!", description: "Relax a bit!", image: "img/rest.png"}),
-                duration: workoutPlan.restBetweenExercise
+                duration: $scope.workoutPlan.restBetweenExercise
             };
-            startExercise(workoutPlan.exercises.shift()); //The shift() with remove the first item in the array and return it
+            $scope.workoutTimeRemaining = $scope.workoutPlan.totalWorkoutDuration();
+
+            $interval(function () {
+                $scope.workoutTimeRemaining = $scope.workoutTimeRemaining - 1;
+            }, 1000, $scope.workoutTimeRemaining);
+
+            startExercise($scope.workoutPlan.exercises.shift()); //The shift() with remove the first item in the array and return it
         };
 
         function startExercise(exercisePlan) {
@@ -30,7 +36,7 @@
                 .then(function() {
                     var next = getNextExercise(exercisePlan);
                     if (next) {
-                        startExercise(next);
+                        startExercise(next); //Recursion
                     } else {
                         $location.path("/finish");
                     }
@@ -43,15 +49,27 @@
             this.name = args.name;
             this.title = args.title;
             this.restBetweenExercise = args.restBetweenExercise;
+
+            this.totalWorkoutDuration = function() {
+                if (this.exercises.length === 0) return 0;
+
+                var total = 0;
+                angular.forEach(this.exercises,
+                    function(exercise) {
+                        total = total + exercise.duration;
+                    });
+
+                return this.restBetweenExercise * (this.exercises.length - 1) + total;
+            }
         };
 
 
         function getNextExercise(currentExercisePlan) {
             var nextExercise = null;
             if (currentExercisePlan === restExercise) {
-                nextExercise = workoutPlan.exercises.shift();
+                nextExercise = $scope.workoutPlan.exercises.shift();
             } else {
-                if (workoutPlan.exercises.length !== 0) {
+                if ($scope.workoutPlan.exercises.length !== 0) {
                     nextExercise = restExercise;
                 }
             }
@@ -240,6 +258,9 @@
                 }),
                 duration: 30
             });
+
+
+
             return workout;
         }
 

@@ -66,6 +66,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\fiters\secondsToTime.js" />
+    <Content Include="app\partials\descriptionPanel.html" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -79,7 +81,6 @@
     <Content Include="app\7MinWorkout\workout.html" />
     <Content Include="app\app.config.js" />
     <Content Include="app\app.module.js" />
-    <Content Include="app\app.routes.js" />
     <Content Include="app\partials\finish.html" />
     <Content Include="app\partials\start.html" />
     <Content Include="css\app.css" />
