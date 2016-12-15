@@ -8,46 +8,89 @@
 
         //restExcercise is a json object containing Exercise duration propery
         var restExercise;
+        var exerciseIntervalPromise;
         //var workoutPlan;
 
         function startWorkout() {
             $scope.workoutPlan = createWorkout();
+            $scope.workoutTimeRemaining = $scope.workoutPlan.totalWorkoutDuration();
             restExercise = {
-                details: new Exercise({ name: "rest", title: "Relax!", description: "Relax a bit!", image: "img/rest.png"}),
+                details: new Exercise({
+                    name: "rest",
+                    title: "Relax!",
+                    description: "Relax a bit!",
+                    image: "img/rest.png",
+                }),
                 duration: $scope.workoutPlan.restBetweenExercise
             };
-            $scope.workoutTimeRemaining = $scope.workoutPlan.totalWorkoutDuration();
-
-            $interval(function () {
-                $scope.workoutTimeRemaining = $scope.workoutTimeRemaining - 1;
-            }, 1000, $scope.workoutTimeRemaining);
 
             $scope.currentExerciseIndex = -1;
-            startExercise($scope.workoutPlan.exercises.shift()); //The shift() with remove the first item in the array and return it
+            startExercise($scope.workoutPlan.exercises[0]);
+
+            //$scope.workoutPlan = createWorkout();
+            //restExercise = {
+            //    details: new Exercise({ name: "rest", title: "Relax!", description: "Relax a bit!", image: "img/rest.png"}),
+            //    duration: $scope.workoutPlan.restBetweenExercise
+            //};
+            //$scope.workoutTimeRemaining = $scope.workoutPlan.totalWorkoutDuration();
+
+            //$interval(function () {
+            //    $scope.workoutTimeRemaining = $scope.workoutTimeRemaining - 1;
+            //}, 1000, $scope.workoutTimeRemaining);
+
+            //$scope.currentExerciseIndex = -1;
+            //startExercise($scope.workoutPlan.exercises.shift()); //The shift() with remove the first item in the array and return it
         };
 
         function startExercise(exercisePlan) {
             $scope.currentExercise = exercisePlan;
             $scope.currentExerciseDuration = 0;
 
-            if (exercisePlan.details.name !== 'rest') {
+            if (exercisePlan.details.name != 'rest') {
                 $scope.currentExerciseIndex++;
             }
 
-
-            $interval(function() {
-                        $scope.currentExerciseDuration = $scope.currentExerciseDuration + 1;
-                    },1000, $scope.currentExercise.duration)
-                .then(function() {
-                    var next = getNextExercise(exercisePlan);
-                    if (next) {
-                        startExercise(next); //Recursion
-                    } else {
-                        $location.path("/finish");
-                    }
-                });
+            exerciseIntervalPromise = startExerciseTimeTracking();
         };
 
+        $scope.pauseWorkout = function () {
+            $interval.cancel(exerciseIntervalPromise);
+            $scope.workoutPaused = true;
+        };
+
+        $scope.resumeWorkout = function () {
+            exerciseIntervalPromise = startExerciseTimeTracking();
+            $scope.workoutPaused = false;
+        };
+
+        $scope.pauseResumeToggle = function () {
+            if ($scope.workoutPaused) {
+                $scope.resumeWorkout();
+            }
+            else {
+                $scope.pauseWorkout();
+            }
+        }
+
+        function startExerciseTimeTracking() {
+            var promise = $interval(function () {
+                ++$scope.currentExerciseDuration;
+                --$scope.workoutTimeRemaining;
+            }, 1000, $scope.currentExercise.duration - $scope.currentExerciseDuration);
+
+            promise.then(function () {
+                var next = getNextExercise($scope.currentExercise);
+                if (next) {
+                    startExercise(next);
+                }
+                else {
+                    $location.path('/finish');
+                }
+            }, function (error) {
+                console.log('Inteval promise cancelled. Error reason -' + error);
+            });
+            return promise;
+        }
 
         function WorkoutPlan(args) {
             this.exercises = [];
@@ -295,8 +338,5 @@
         };
 
         init();
-
-
-
     };
 }())
