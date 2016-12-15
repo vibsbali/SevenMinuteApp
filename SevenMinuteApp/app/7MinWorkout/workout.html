@@ -3,6 +3,17 @@
 
     </div>
     <div id="exercise-pane" class="col-sm-7">
+
+        <!--Audio Panel-->
+        <span ng-controller="WorkoutAudioController">
+            <audio media-player="ticksAudio" loop autoplay src="content/tick10s.mp3"></audio>
+            <audio media-player="nextUpAudio" src="content/nextup.mp3"></audio>
+            <audio media-player="nextUpExerciseAudio" playlist="exercisesAudio"></audio>
+            <audio media-player="halfWayAudio" src="content/15seconds.wav"></audio>
+            <audio media-player="aboutToCompleteAudio" src="content/321.wav"></audio>
+        </span>
+
+
         <div class="row workout-content">
             <div class="workout-display-div">
                 <h4>
@@ -16,7 +27,8 @@
                 </div>
                 <h1>Time Remaining: {{currentExercise.duration-currentExerciseDuration}}</h1>
                 <h3 class="col-sm-6 text-right" ng-if="currentExercise.details.name=='rest'">
-                    Next up: <strong>{{workoutPlan.exercises[0].details.title}}</strong></h3>
+                    Next up: <strong>{{workoutPlan.exercises[0].details.title}}</strong>
+                </h3>
             </div>
         </div>
     </div>
@@ -32,6 +44,6 @@
     <div class="panel-body">
         <div ng-repeat="video in currentExercise.details.related.videos">
             <iframe src="{{video}}" frameborder="0" allowfullscreen width="330" height="220"></iframe>
-            </div>
+        </div>
     </div>
 </script>
