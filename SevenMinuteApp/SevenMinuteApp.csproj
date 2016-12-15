@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\fiters\lineBreakFilter.js" />
     <Content Include="app\fiters\secondsToTime.js" />
     <Content Include="app\partials\descriptionPanel.html" />
     <Content Include="packages.config" />

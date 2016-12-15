@@ -211,7 +211,7 @@
                     description: "A form exercise that develops strength and endurance of the hip flexors and quads and stretches the hip extensors.",
                     image: "img/highknees.png",
                     videos: ["//www.youtube.com/embed/OAJ_J3EZkdY", "//www.youtube.com/embed/8opcQdC-V-U"],
-                    procedure: "Start standing with feet hip-width apart. \
+                    procedure: "Start standing with feet hip-width apart.\
                               Do inplace jog with your knees lifting as much as possible towards your chest."
                 }),
                 duration: 30
