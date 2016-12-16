@@ -70,6 +70,7 @@
     <Content Include="app\fiters\lineBreakFilter.js" />
     <Content Include="app\fiters\secondsToTime.js" />
     <Content Include="app\partials\descriptionPanel.html" />
+    <Content Include="app\partials\video-panel.html" />
     <Content Include="content\15seconds.wav" />
     <Content Include="content\321.wav" />
     <Content Include="content\crunches.wav" />

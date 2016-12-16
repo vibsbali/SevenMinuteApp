@@ -2,7 +2,11 @@
     <div id="description-panel" class="col-sm-2" ng-include="'app/partials/descriptionPanel.html'">
 
     </div>
-    <div id="exercise-pane" class="col-sm-7">
+    <div id="exercise-pane" class="col-sm-7" ng-mouseenter="showPauseOverlay=true" ng-mouseleave="showPauseOverlay=false">
+        
+        <div id="pause-overlay" ng-click="pauseResumeToggle()" ng-show="showPauseOverlay">
+            <span class="glyphicon glyphicon-pause pause absolute-center" ng-class="{'glypicon-pause' : !workoutPaused, 'glyphicon-play' : workoutPaused}"></span>
+        </div>
 
         <!--Audio Panel-->
         <span ng-controller="WorkoutAudioController">
@@ -32,18 +36,6 @@
             </div>
         </div>
     </div>
-    <div id="video-panel" class="col-sm-3" ng-include="'video-panel.html'">
+    <div id="video-panel" class="col-sm-3" ng-include="'app/partials/video-panel.html'">
     </div>
 </div>
-<script type="text/ng-template" id="video-panel.html">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Videos</h3>
-        </div>
-    </div>
-    <div class="panel-body">
-        <div ng-repeat="video in currentExercise.details.related.videos">
-            <iframe src="{{video}}" frameborder="0" allowfullscreen width="330" height="220"></iframe>
-        </div>
-    </div>
-</script>
