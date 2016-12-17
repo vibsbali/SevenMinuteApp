@@ -71,6 +71,7 @@
     <Content Include="app\fiters\secondsToTime.js" />
     <Content Include="app\partials\descriptionPanel.html" />
     <Content Include="app\partials\video-panel.html" />
+    <Content Include="app\VideoFeatures\videoController.js" />
     <Content Include="content\15seconds.wav" />
     <Content Include="content\321.wav" />
     <Content Include="content\crunches.wav" />
@@ -122,6 +123,10 @@
     <Content Include="img\wallsit.png" />
     <Content Include="index.html" />
     <Content Include="ThirdPartyLibraries\angular-media-player.js" />
+    <Content Include="ui-bootstrap-0.10.0.js" />
+    <Content Include="ui-bootstrap-0.10.0.min.js" />
+    <Content Include="ui-bootstrap-tpls-0.10.0.js" />
+    <Content Include="ui-bootstrap-tpls-0.10.0.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
