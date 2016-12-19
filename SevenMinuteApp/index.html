@@ -10,13 +10,19 @@
     <link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/app.css" />
 </head>
-<body ng-app="app" class="container-fluid">
+<body ng-app="app" class="container-fluid" ng-controller="rootController">
     <div class="row">
         <div class="navbar navbar-default navbar-fixed-top top-navbar">
             <div class="container-fluid app-container">
                 <div class="navbar-header">
-                    <h1>7 Minute Workout</h1>
+                    <!--<h1>7 Minute Workout</h1>-->
+                    <div class="navbar-brand">7 Minute Workout</div>
                 </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a ng-click="showWorkoutHistory()" title="Workout History">History</a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="container-fluid body-content workout-app-container" tabindex="1" ng-keypress="onKeyPressed($event)">
@@ -33,9 +39,11 @@
     <script src="ThirdPartyLibraries/angular-media-player.js"></script>
 
     <script src="app/app.module.js"></script>
+    <script src="app/RootController.js"></script>
     <script src="app/app.config.js"></script>
     <script src="app/fiters/lineBreakFilter.js"></script>
     <script src="app/fiters/secondsToTime.js"></script>
+    <script src="app/7MinWorkout/workoutHistoryTrackerService.js"></script>
 
     <script src="app/AudioController/workoutAudioController.js"></script>
     <script src="app/7MinWorkout/workout.controller.js"></script>

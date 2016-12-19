@@ -66,11 +66,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\7MinWorkout\workoutHistoryTrackerService.js" />
     <Content Include="app\AudioController\workoutAudioController.js" />
     <Content Include="app\fiters\lineBreakFilter.js" />
     <Content Include="app\fiters\secondsToTime.js" />
     <Content Include="app\partials\descriptionPanel.html" />
     <Content Include="app\partials\video-panel.html" />
+    <Content Include="app\partials\workout-history.html" />
+    <Content Include="app\RootController.js" />
     <Content Include="app\VideoFeatures\videoController.js" />
     <Content Include="content\15seconds.wav" />
     <Content Include="content\321.wav" />
